@@ -1,0 +1,71 @@
+ <div class="item">
+            <div>Avatar URL</div>
+            <div> 
+                <input 
+                type="url" 
+                name="avatar_url"
+                placeholder="htpp://"
+                value="{{instructor.avatar_url}}"> 
+                
+                <!--placeholder deixa um texto dentro da caixa para saber que tenho que escrever ali
+                o value vai servir para passar o que tenho guardado no meu banco de dados-->
+            </div>
+        </div>
+
+        <div class="item">
+            <div>Instrutor</div>
+            <div> 
+                <input 
+                    type="text" 
+                    name="name"
+                    placeholder="Nome do Instrutor"
+                    value="{{instructor.name}}">
+            </div>
+        </div>
+
+         <div class="item">
+            <div>Data de Nascimento</div>
+            <div>
+                <input 
+                    type="date" 
+                    name="birth"
+                    value="{{instructor.birth}}">
+            </div>
+        </div>
+
+         <div class="item">
+            <div>Sexo</div>
+            <div>
+                <span> <input 
+                type="radio" 
+                name="gender" 
+                value="M" 
+                {% if instructor.gender == 'M' %} 
+                checked
+                {% endif %}>Masculino</span>
+
+            <!--esse if fiz para checar se for masculino a opção vai ficar marcada na página de edição,
+            o mesmo para o feminino-->
+
+                <span> <input 
+                type="radio" 
+                name="gender" 
+                value="F"
+                  {% if instructor.gender == 'F' %} 
+                checked
+                {% endif %}>Feminino</span>
+            </div>
+        </div>
+
+         <div class="item">
+            <div>Área de Atuação</div>
+            <div>
+               <input 
+                    type="text" 
+                    name="services"
+                    placeholder="Separe os serviços prestados por vírgula"
+                    value="{{instructor.services}}">
+            </div>
+        </div>
+        <button type="submit">Salvar</button> <!--o submit permite que o formulário seja enviado ao servidor
+        por estar dentro do form-->

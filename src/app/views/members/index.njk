@@ -1,0 +1,60 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+<div class="card table_container">
+
+    <div class="header">
+    <a class="button" href="/members/create">Novo</a>
+    <form action="/members" method="GET"><!--vai ficar na mesma página por isso get e instrcutors-->
+        <input 
+        type="text" 
+        name="filter" 
+        placeholder="por nome ou email..."
+        value="{{filter}}"
+        >
+        <button  type="submit">Filtrar</button>
+    </form>
+    </div>
+
+
+   <table width="100%"> <!--tag par inserir uma tabela
+   esse width deixa a tabela pegando a largura toda-->
+        <thead><!--cabeçalho da tabela-->
+            <tr><!--tr é cada linha da tabela-->
+                <th>Membro</th> <!-- th é cada coluna da tabela-->
+                <th>E-mail</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        
+        <tbody> <!--é o corpo da tabela-->
+            {% for member in members%} <!--loop para pecorrer o array com os dados no arquivo data.json-->
+            <tr>
+                <td>
+                    <span style="background-image: url({{member.avatar_url}})"></span><!--colocando imagem na tabela-->
+                    
+                    {{member.name}}</td> <!--td são as colunas no corpo da tabela-->
+                
+               <td>{{member.email}}</td>
+               <td>{{member.weight}}KG</td>
+               <td>{{member.height}}CM</td>
+
+                <td><a href="/members/{{member.id}}">Ver</a></td><!-- é um botão que quando
+                clicado irá redirecionar para a página de exibição de cada instrutor onde será possível
+                editar as informações-->
+            </tr>
+            {% endfor %}
+        </tbody>
+   </table>
+    <div class="pagination"
+   data-page={{pagination.page}}
+   data-total={{pagination.total}}
+   data-filter={{filter}}>
+
+   </div>
+</div>
+
+{% endblock content %}

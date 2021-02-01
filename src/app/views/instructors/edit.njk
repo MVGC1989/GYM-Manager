@@ -1,0 +1,73 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+<!--form é uma tag html que representa uma seção do documento com controles iterativos
+ que permite que o usuário inserir informaçoes e enviá-las a um servidor
+ o method define qual método htpp vai enviar os dados para o servidor, podenso ser get ou POST
+ o action define o local (url) em que os dados recolhidos do formulário devem ser enviados-->
+
+<!--trocar o método POST por PUT. O Post sempre salvará um novo instrutor mesmo que eu
+só esteja atualizando as informações, ao passo que o PUT vai somente salvar as alterações
+feitas em relação a cada instrutor previamente cadastrado-->
+
+<!--Contudo o HTML5 não aceita o método PUT. Por isso precisamos configurar o methodoverride
+que premite utilizar os verbos put e delete. 
+Para isso abro um terminal e npm install method-override
+depois abro o server.js e configura o metodo override-->
+<div class="card">
+
+<section 
+    class="avatar" 
+    style="background: url({{instructor.avatar_url}}) no-repeat center center / cover">
+    </section>
+
+   
+    
+<!-- O que foi feito acima serve para colocar diretamente uma imagem como plano de fundo da section
+500x500 é seu tamanho, no repeat é para ela não repetir. center center centraliza Cover vai cobrir a section toda-->
+
+    <section class="details">
+    <form method="POST" action="/instructors?_method=PUT"> <!--?_method=PUT vai sobrescrever
+o método post para put-->
+  
+        <h3>Editar Instrutor</h3>
+
+        {% include "instructors/fields.njk" %} <!--esse include da engine njk permite que eu inclua
+        neste arquivo um pedaço de outro arquivo. Nesse caso será útil pois se eu quiser
+        modificar algo nos campos do formulário eu só vou precisar mexer em um arquivo-->
+    
+    <input 
+        type="hidden" 
+        name="id" 
+        value={{instructor.id}}><!--crio um input hidden porque 
+                                    ele não precisa aparecer
+                                    para passar o id do instrutor
+                                    na página de edição-->
+</form>
+       <form  action="/instructors?_method=DELETE" method="POST"> <!--Crio outro form para a parte 
+de deletar o instrutor-->
+
+<input 
+    type="hidden" 
+    name="id" 
+    value= "{{instructor.id}}">
+
+    <button id= "form_delete" type="submit">Deletar</button>
+
+</form>
+    </section>
+</div>
+
+<script>
+    var formDelete = document.querySelector("#form_delete")
+    formDelete.addEventListener("submit", function(event){
+        var confirmation = confirm("Deseja Deletar?")
+        if(!confirmation){
+            event.preventDefault()
+        }
+    })
+</script>
+
+{% endblock content %}
+

@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --primary-color:#7159c1;
+    --secondary-color: #f7df1e;
+}
+
+*{
+    margin:0;
+    padding: 0;
+    border: none;
+}
+
+body{
+    background-color: var(--primary-color);
+    font-family: 'Roboto', sans-serif ;
+}
+
+header{
+    background-color: white;
+    width: 100%;
+    padding: 32px;
+    text-align: center;
+    box-sizing: border-box; /*esse comando faz com que o pading respeite o limite de 100% mantendo os elementos alinhados ao centro*/
+}
+
+.links{
+    font-size: 22px;
+}
+
+.links a + a{ /*esse comando serve para adcionar a margin somente no elemento seguinte, ou seja no meio dos dois links. isso ajuda a centralizar os elementos*/
+    margin-left: 32px;
+    
+}
+.links a{
+    text-decoration: none;
+    color: #7777;
+    position: relative;
+}
+
+.links a.active{ /*deixar o link quando estiver ativo de uma forma e cor diferente sinalisando que estou naquela página*/
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.links a:hover{
+    color: var(--primary-color);
+}
+
+.links a::after{ /*Um pseudo-elemento CSS é uma palavra-chave adicionada a 
+    um seletor que permite que você estilize uma parte específica do elemento selecionado. 
+    Neste caso, usei o after para aplicar o estilo somente no texto que o mouse fou colocado*/
+    content: "";
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    bottom: -4px;   
+}
+
+.links a:hover::after{
+    transition: width 100ms ease-in-out ; /*vai aplicar a transição somente na largura do elemento
+    um tracedado vai correr sobre o link vai durar 200ms e um delay de 1 segundo
+    o ease in out quer dizer que o traço vai começar devagar acelerar no meio e desacelar no fim */
+    width: 100%;
+}
+
+/* === CARD === */
+
+.card{
+    background-color: white;
+    width: 800px;
+    min-height: 400px; /*define uma altura mínima mas que pode ir aumentando conforme o conteúdo*/
+
+    /* espaçamento ao centro*/
+    margin: 45px auto;
+   
+   /*divide a tela ao meio grid*/
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    /* boxshadow adicona um efeito de sombra na div. 
+    O primeiro valor é o eixo x - desloca na horizontal 
+    e o segundo valor o eixo y- desloca na vertical
+    o terceiro valor é o blur que serve para borrar
+    o último valor é o spreed*/
+    box-shadow: 0px 2px 6px -2px rgba(0, 0, 0, 0.2);
+
+    /* animação */
+
+    animation: up 200ms ease-out; /* nome, duração e tempo de deslocamento em uma única linha*/
+     
+   /* animation-name: up; nome da animação
+    animation-duration: 700ms;
+    animation-timing-function: ease-out; vai fazer a imagem aparecer de forma suave
+    animation-fill-mode: forwards; /* faz com que a animação termmine nas configurações descritas no TO
+    animation-delay: 1s;
+    animation-play-state: running;/*deixa animação rodando. Se eu colocar paused, 
+    posso configurar via javascript para que ela inicie após o click de um botão
+    animation-iteration-count: infinite; */
+}
+
+@keyframes up{ /*aqui vou editar a animação. FROM onde começa a animação e TO onde termina*/
+    from{
+        opacity: 0;
+        transform: translateY(15px); /*a imagem vai surgir do eixo y*/
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+/* details*/
+
+.details{
+    padding: 32px;
+}
+
+.details .item{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 16px 0;
+}
+
+.details .item:last-child{ /*aplica efeito somente ao último elemento, neste caso tirando a faixa */
+    border: none;
+}
+.details h3,
+.details .item div:nth-child(1){ /* esse comando serve para aplicar estilo somente na primeira div de cada item
+    neste caso muda o instrutor, idade, sexo etc.*/
+    font-size: 14px;
+    line-height: 24px;
+    color:#777;
+    letter-spacing: 0.7px; /*espaçamento entre as letras*/
+    font-weight: normal;
+}
+.details .item div:nth-child(2){
+    color: #555;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.details h3{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.details .item span{
+    padding: 8px 16px;
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+    color: #777;
+    margin-right: 4px;
+    margin-top: 8px;
+    display: inline-block; /*serve para que o margin top funcione nesta configuração e a caixa de texto não fique na linha toda*/
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* === FORM === */
+
+input, 
+select{
+    width: 100%;
+    outline: none; /*retira a linha que aparece em volta do input quando selecion0*/
+    color: #555;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+input[type="radio"]{ /*permite q eu faça modificações no input de acordo com o tipo escolhido*/
+    width: initial;
+    margin-right: 4px;
+}
+
+input::placeholder{
+    font-size: 16px;
+    font-weight: normal;
+}
+button[type="submit"],
+a.button{
+    padding: 8px 32px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+a.button{
+    display: block;/*pega linha toda mas passou da caixa, resolvo usando o box-sizing*/
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+}
+#form_delete{
+    background-color:lightcoral;
+    margin-top: 8px;
+}
+
+/*=== INDEX TABELA DE INSTRUTOR ===*/
+
+.table_container{
+    display: block; /*retira o display grid que dividia a tabela em 2 colunas*/
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.table_container table{
+    border-spacing: 0px;
+}
+
+.table_container thead {
+    text-align:left;
+    text-transform: uppercase;
+    color: #777;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+td, th{
+    padding: 16px;
+    border: 2px solid #d9d9d9;
+}
+
+td:first-child{/*editar nome dos instrutores*/
+    font-weight: bold;
+    text-align: left;
+    margin-top: auto;
+}
+   
+tbody tr td { /*tirar a linha da últma informação da coluna*/
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+
+.service{
+    padding: 4px 6px;
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+tbody tr td:first-child {/*fazendo a foto do instrutor aparecer*/
+    display: grid;
+    grid-template-columns: 64px 1fr;/*esse espaço permite que a imagem apareça nos 64px e o nome fique ao lado*/
+    align-items: center;
+    
+}
+
+tbody tr td:first-child span{/*estilizar todas as linhas da primeira coluna
+    da tabela que contem a tag span - imagem*/
+    width: 56px;
+    height: 56px;
+    background-position: center;
+    background-size: cover;/*cobre todo fundo*/
+    border-radius: 50%;
+    box-shadow: 3px 1px 6px -4px black;
+    border: 2px solid white;
+}
+
+tbody tr td:last-child a,
+.table_container > a{/*estilizando o botão visualizar e ao mesmo tempo esse > significa
+    que vou pegar qualquer a e estilizar do mesmo jeito*/
+    background-color: var(--primary-color);
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.table_container > a{
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+th:last-child,
+td:last-child{/*editando o último item da última coluna do cabeçalho
+    vai deixar o ação alinhado com botão visualizar*/
+    text-align: center;
+}
+
+/*==== FILTERS===*/
+
+.table_container .header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center; /*alinha as duas colunas na mesma linha*/
+    margin-bottom: 32px;
+}
+
+.table_container .header a{
+    margin: 0;
+    width: 120px;
+}
+
+.table_container .header form{
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    align-items: center;
+    grid-gap: 8px;
+}
+
+.table_container .header form input{
+    border:1px solid #eee;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+.table_container .header form button{
+    margin: 0;
+}
+
+/*===PAGINATION===*/
+
+.table_container {
+    display: grid;
+    grid-template: 64px 1fr 16px / 1fr; /* adiciona 3 linhas e uma coluna*/
+}
+
+.table_container .header{
+    margin: 0;
+    align-self: start;
+}
+
+.table_container .pagination{
+    margin: 0;
+    align-self: end;
+    justify-self: center;
+}
+
+.pagination a,
+.pagination span{
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-right: 16px;
+}
+
+.pagination a:hover{
+    filter: brightness(0.3); /*deixa mais escuro quando passo mouse*/
+    border-bottom: 1px solid var(--primary-color);
+}

@@ -1,0 +1,28 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+<!--form é uma tag html que representa uma seção do documento com controles iterativos
+ que permite que o usuário inserir informaçoes e enviá-las a um servidor
+ o method define qual método htpp vai enviar os dados para o servidor, podenso ser get ou POST
+ o action define o local (url) em que os dados recolhidos do formulário devem ser enviados-->
+
+<form class="card" method="POST" action="/instructors">
+    <section 
+    class="avatar" 
+    style="background: url(https://source.unsplash.com/collection/9374406/500x500) no-repeat center center / cover">
+    </section>
+
+<!-- O que foi feito acima serve para colocar diretamente uma imagem como plano de fundo da section
+500x500 é seu tamanho, no repeat é para ela não repetir. center center centraliza Cover vai cobrir a section toda-->
+
+    <section class="details">
+
+        <h3>Novo Instrutor</h3>
+        
+            {% include "instructors/fields.njk" %}
+        
+    </section>
+</form>
+
+{% endblock content %}

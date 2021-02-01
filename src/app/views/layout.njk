@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    
+    {% block head %}
+         <title>GYM Manager</title>
+    {% endblock %}
+
+    <link rel="stylesheet" href="/styles.css"> 
+</head>
+
+<body>
+    
+    <header> <!--parte de introdução do site cabeçalho-->
+       
+        <div class="links"><!--é uma caixa um bloco que agrupa elementos semelhantes-->
+            
+            <a href="/instructors">Instructors</a> <!--cria um link para acessar alguma coisa, utilizei a barra porque ja configurei assim no servidor-->
+           
+            <a href="/members">Members</a>
+        </div>
+
+    </header>
+
+    {% block content %} {% endblock %}
+
+    <script src="/scripts.js"></script>
+
+</body>
+
+</html>
