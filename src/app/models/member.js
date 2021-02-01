@@ -1,10 +1,8 @@
-/* lembrando que all(callback é a mesa coisa que all: function all(callback){}) */
-
-var {date} = require('../../lib/utils')
-var db = require('../../config/db')
+const {date} = require('../../lib/utils')
+const db = require('../../config/db')
 
 module.exports = {
-    all(callback){ //será resposável por chamar  todos os instrutores index
+    all(callback){ 
         db.query(`SELECT * FROM members`, function(err , results){
             if(err){ throw `Database Error ! ${err}`}
                 callback(results.rows)
@@ -12,7 +10,7 @@ module.exports = {
     },
 
     create( data, callback){
-        var query =  `
+        const query =  `
             INSERT INTO members (
                 name,
                 avatar_url,
@@ -26,12 +24,12 @@ module.exports = {
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9 )
                 RETURNING id
         `
-        var values = /*essa var terá os valores que substituiram os valores em $1 etc*/[
+        const values = [
             data.name,
             data.avatar_url,
             data.gender,
             data.email,
-            date(data.birth).iso,//vai puxar do ultils a forma de data dia mes ano
+            date(data.birth).iso,
             data.blood,
             data.weight,
             data.height,
@@ -44,7 +42,7 @@ module.exports = {
         })
     },
 
-    find(id , callback){//esa função vai buscar um instrutor apenas, página show
+    find(id , callback){
         db.query(`
             SELECT members.*, instructors.name AS instructor_name
             FROM members 
@@ -56,7 +54,7 @@ module.exports = {
     },
 
     update(data , callback){
-        var query = `
+        const query = `
             UPDATE members SET
                 avatar_url = ($1),
                 name = ($2),
@@ -69,7 +67,7 @@ module.exports = {
                 instructor_id = ($9)
             WHERE id = $10
         `
-        var values = [
+        const values = [
             data.avatar_url,
             data.name,
             date(data.birth).iso,
@@ -95,7 +93,7 @@ module.exports = {
         })
     },
 
-    instructors_select_options(callback){//aqui vou selecionar o nome dos instrutores para escolher no campo de preenchimento do novo aluno
+    instructors_select_options(callback){
         db.query(`SELECT name, id FROM instructors`, function(err , results){
             if(err){ throw `Database error! ${err}`}
                 callback(results.rows)
@@ -103,7 +101,7 @@ module.exports = {
     },
 
     paginate(params){
-        var { filter, limit, offset, callback } = params
+        const { filter, limit, offset, callback } = params
 
         let query = ""
         let filter_query = ""

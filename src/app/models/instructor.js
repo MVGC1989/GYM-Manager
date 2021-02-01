@@ -1,10 +1,8 @@
-/* lembrando que all(callback é a mesa coisa que all: function (callback){}) */
-
-var {age , date} = require('../../lib/utils')
-var db = require('../../config/db')
+const {date} = require('../../lib/utils')
+const db = require('../../config/db')
 
 module.exports = {
-    all(callback){ //será resposável por chamar  todos os instrutores index
+    all(callback){ 
         db.query(`
             SELECT instructors.*, count(members) AS total_students 
             FROM instructors
@@ -13,12 +11,11 @@ module.exports = {
             ORDER BY total_students DESC`, function(err , results){
             if(err){ throw `Database Error ! ${err}`}
                 callback(results.rows)
-    })   /* esse order by name asc serve para ordenar pelo nome ascendte ordem alfabetica
-    ja desc é descentende */ 
+    })  
     },
 
     create( data, callback){
-        var query =  `
+        const query =  `
             INSERT INTO instructors (
                 name,
                 avatar_url,
@@ -29,12 +26,12 @@ module.exports = {
             ) VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id
         `
-        var values = /*essa var terá os valores que substituiram os valores em $1 etc*/[
+        const values = [
             data.name,
             data.avatar_url,
             data.gender,
             data.services,
-            date(data.birth).iso,//vai puxar do ultils a forma de data dia mes ano
+            date(data.birth).iso,
             date(Date.now()).iso,
         ]
         
@@ -44,7 +41,7 @@ module.exports = {
         })
     },
 
-    find(id , callback){//esa função vai buscar um instrutor apenas, página show
+    find(id , callback){
         db.query(`
             SELECT * 
             FROM instructors 
@@ -54,7 +51,7 @@ module.exports = {
         })
     },
 
-    findby(filter , callback){//função para filtar na tabela por nome do instrutor
+    findby(filter , callback){
         db.query(`
             SELECT instructors.*, count(members) AS total_students 
             FROM instructors
@@ -65,14 +62,11 @@ module.exports = {
             ORDER BY total_students DESC`, function(err , results){
             if(err){ throw `Database Error ! ${err}`}
                 callback(results.rows)
-    } /*esse where vai filtrar por nome do instrutor
-    ILIKE quer dixer que pode ser letra maiuscula ou minuscula
-    a % antes e depois da template string quer dizer que vai procurar tudo
-    que for digitado no input. O OR ou AND adiciona mais condições, sendo and o e e or e ou*/
-    )},
+            } 
+        )},
 
     update(data , callback){
-        var query = `
+        const query = `
             UPDATE instructors SET
                 avatar_url = ($1),
                 name = ($2),
@@ -81,7 +75,7 @@ module.exports = {
                 services = ($5)
             WHERE id = $6
         `
-        var values = [
+        const values = [
             data.avatar_url,
             data.name,
             date(data.birth).iso,
@@ -104,7 +98,7 @@ module.exports = {
     },
 
     paginate(params){
-        var { filter, limit, offset, callback } = params
+        const { filter, limit, offset, callback } = params
 
         let query = ""
         let filter_query = ""

@@ -1,5 +1,5 @@
 
-var {age , date} = require('../../lib/utils')
+var {date} = require('../../lib/utils')
 var Member = require('../models/member')
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
         callback(members){
 
             const pagination = { 
-                //total: Math.ceil(members[0].total / limit), 
+                total: Math.ceil(members[0].total / limit), 
                 page
             }
             return res.render("members/index" , {members , pagination , filter})
@@ -31,15 +31,12 @@ module.exports = {
 },
     
     create(req , res){
-
         Member.instructors_select_options(function(options){
-             return res.render('members/create' , {instructor_options: options})
+            return res.render('members/create' , {instructor_options: options})
         })
-       
     },
 
     post(req , res){
-
         var keys = Object.keys(req.body) 
         for( key of keys){
             if(req.body[key]== ""){
