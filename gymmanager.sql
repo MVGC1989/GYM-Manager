@@ -23,3 +23,24 @@ CREATE TABLE "members" (
     "height" integer,
     "instructor_id" integer
 );
+
+ALTER TABLE instructors ADD COLUMN updated_at timestamp DEFAULT (now())
+ALTER TABLE members ADD COLUMN updated_at timestamp DEFAULT (now())
+
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+NEW.updated_at = NOW();
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON instructors
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON members
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();

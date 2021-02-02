@@ -21,15 +21,10 @@ date: function(timestamp){
     const minutes = date.getMinutes()
     const seconds = date.getSeconds()
         return {
-            day,
-            month,
-            year,
-            hour,
-            minutes,
-            seconds,
-            iso: `${year}-${month}-${day} - ${hour}:${minutes}:${seconds}`,
+            iso: `${year}-${month}-${day}`,
             birth_day: `${day}/${month}`,
-            format: `${day}/${month}/${year}`
+            format: `${day}/${month}/${year}`,
+            isocreate: `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
         }
 }
 }

@@ -5,16 +5,16 @@
 <div class="card table_container">
 
     <div class="header">
-    <a class="button" href="/instructors/create">Novo</a>
-    <form action="/instructors" method="GET">
-        <input 
-        type="text" 
-        name="filter" 
-        placeholder="por nome ou atendimento..."
-        value="{{filter}}"
-        >
+        <a class="button" href="/instructors/create">Novo</a>
+        <form action="/instructors" method="GET">
+            <input 
+            type="text" 
+            name="filter" 
+            placeholder="por nome ou atendimento..."
+            value="{{filter}}"
+            >
         <button  type="submit">Filtrar</button>
-    </form>
+        </form>
     </div>
 
 
@@ -34,25 +34,25 @@
                 <td>
                     <span style="background-image: url({{instructor.avatar_url}})"></span>
                     
-                    {{instructor.name}}</td> 
+                <td>{{instructor.name}}</td> 
                 
                 <td> 
                     <span class="service">{{instructor.services}}</span> 
                 </td>
+
                 <td>{{instructor.total_students}}</td>
                 
                 <td><a href="/instructors/{{instructor.id}}">Ver</a></td>
             </tr>
             {% endfor %}
         </tbody>
-   </table>
+    </table>
 
-   <div class="pagination"
-   data-page={{pagination.page}}
-   data-total={{pagination.total}}
-   data-filter={{filter}}>
-
-   </div>
+    <div class="pagination"
+        data-page={{pagination.page}}
+        data-total={{pagination.total}}
+        data-filter={{filter}}>
+    </div>
 </div>
 
 {% endblock content %}

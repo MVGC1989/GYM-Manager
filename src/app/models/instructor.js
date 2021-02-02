@@ -32,7 +32,7 @@ module.exports = {
             data.gender,
             data.services,
             date(data.birth).iso,
-            date(Date.now()).iso,
+            date(Date.now()).isocreate,
         ]
         
         db.query(query, values, function(err , results){
@@ -68,19 +68,19 @@ module.exports = {
     update(data , callback){
         const query = `
             UPDATE instructors SET
-                avatar_url = ($1),
-                name = ($2),
-                birth = ($3),
-                gender = ($4),
-                services = ($5)
+                name = ($1),
+                avatar_url = ($2),
+                gender = ($3),
+                services = ($4),
+                birth = ($5)
             WHERE id = $6
         `
         const values = [
-            data.avatar_url,
             data.name,
-            date(data.birth).iso,
+            data.avatar_url,
             data.gender,
             data.services,
+            date(data.birth).iso,
             data.id
         ]
 
